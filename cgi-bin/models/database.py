@@ -13,7 +13,7 @@ from sqlalchemy.ext.declarative import declarative_base
 class Database:
     def __init__(self):
         self.m = MetaData()
-        self.engine = create_engine('mysql+pymysql://freedom:freedom123@localhost/freedom')
+        self.engine = create_engine('mysql+pymysql://username:password@localhost/freedom')
         Session = sessionmaker(bind=self.engine)
         self.session = Session()
         self.Base = declarative_base()

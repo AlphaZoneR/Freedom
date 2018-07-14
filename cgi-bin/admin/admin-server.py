@@ -1,4 +1,4 @@
-#!/home/freedom/cgi-bin/venv/bin/python
+#!/home/afim1689/Freedom/cgi-bin/venv/bin/python
 
 from flask import Response, Flask
 
