@@ -1,4 +1,4 @@
-from flask import Response, Blueprint, abort, request, render_template
+from flask import Response, Blueprint, abort, request, render_template, send_from_directory
 from models.post_model import Post
 
 import json
@@ -16,5 +16,11 @@ post_blueprint = Blueprint('post_blueprint', __name__)
 
 @post_blueprint.route('/get', methods=['GET'])
 def get_all():
-
     return render_template('get_post.html', posts=[json.loads(repr(post)) for post in Post.all().all()])
+
+@post_blueprint.route('/img/<img>', methods=['GET'])
+def get_img(img):
+    try:
+        return send_from_directory('admin/img/posts/', img)
+    except:
+        return abort(404)
