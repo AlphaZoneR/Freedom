@@ -13,10 +13,12 @@ def message(code, msg):
 
 post_blueprint = Blueprint('post_blueprint', __name__)
 
-
 @post_blueprint.route('/get', methods=['GET'])
 def get_all():
-    return render_template('get_post.html', posts=[json.loads(repr(post)) for post in Post.all().all()])
+    authors = []
+    for post in Post.all().all():
+        authors.append(post['author'])
+    return render_template('get_post.html', posts=[json.loads(repr(post)) for post in Post.all().all()], authors=authors)
 
 @post_blueprint.route('/img/<img>', methods=['GET'])
 def get_img(img):

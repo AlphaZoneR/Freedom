@@ -22,7 +22,8 @@ class BasePost(db.Base):
             'views': self.views,
             'body': self.body,
             'timestamp': str(self.timestamp.strftime('%A %d %B %Y at %H:%M')),
-            'picture': self.picture
+            'picture': self.picture,
+            'author': self.author
         })
 
 
