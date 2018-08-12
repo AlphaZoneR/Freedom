@@ -17,4 +17,4 @@ post_blueprint = Blueprint('post_blueprint', __name__)
 @post_blueprint.route('/get', methods=['GET'])
 def get_all():
 
-    return render_template('get_post.html', posts=Post.all().all())
+    return render_template('get_post.html', posts=[repr(post) for post in Post.all().all())])
