@@ -4,7 +4,7 @@
     <h1 class="post-title">{{posts[i]['title']}}</h1>
     <img src="/freedom/api/post/img/{{posts[i]['picture']}}">
     <p class="post-info">{{posts[i]['body'][0:25]}}</p>
-    {{authors[i]}}
+    <p>Postat de {{authors[i]['name']}} la {{posts[i]['timestamp']}}</p>
 </div>
 
 {{post}}
