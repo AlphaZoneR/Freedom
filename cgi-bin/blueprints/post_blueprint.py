@@ -18,7 +18,7 @@ post_blueprint = Blueprint('post_blueprint', __name__)
 def get_all():
     authors = []
     for post in Post.all().all():
-        authors.append(repr(User.get(id=post.author)))
+        authors.append(repr(User.get(id=post.author).all()))
     return render_template('get_post.html', posts=[json.loads(repr(post)) for post in Post.all().all()], authors=authors)
 
 @post_blueprint.route('/img/<img>', methods=['GET'])
