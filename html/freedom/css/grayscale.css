@@ -255,6 +255,7 @@ a:focus, a:hover {
 #special h1 {
   display: inline-block;
   position: relative;
+  white-space: nowrap;
 }
 
 #special h1::after {
@@ -378,6 +379,169 @@ a:focus, a:hover {
   left: 0;
 }
 
+#about h4 {
+  display: inline-block;
+  position: relative;
+}
+
+#about h4::after {
+  margin-top: 5px;
+  content: "";
+  position: absolute;
+  height: 1px;
+  bottom: 0;
+  border-bottom: 2px solid silver;
+  width: 10%;
+  left: 0;
+}
+
+#about .partner-holder {
+  width: 1140px;
+  border: 1px solid white;
+  border-left: none;
+  border-right: none;
+  margin: auto;
+  transition: background-color 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 1140px) {
+  #about .partner-holder {
+    width: 100%;
+  }
+  #about .partner-holder span {
+    display: none;
+  }
+  #about .partner-holder button {
+    width: 100% !important;
+  }
+}
+
+#about .partner-holder:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+#about .partner-holder:hover span {
+  opacity: 1;
+}
+
+#about .partner-holder button {
+  font-size: 25px;
+  color: white;
+  width: 90%;
+  border: 0;
+  margin: 0;
+  background-color: transparent;
+}
+
+#about .partner-holder button:focus {
+  outline: none;
+}
+
+#about .partner-holder span {
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+  width: 9%;
+  font-size: 25px;
+}
+
+#about .societati-holder {
+  width: 1140px;
+  border: 1px solid white;
+  border-left: none;
+  border-right: none;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 1140px) {
+  #about .societati-holder {
+    width: 100%;
+  }
+  #about .societati-holder span {
+    display: none;
+  }
+  #about .societati-holder button {
+    width: 100% !important;
+  }
+}
+
+#about .societati-holder:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+#about .societati-holder:hover span {
+  opacity: 1;
+}
+
+#about .societati-holder button {
+  font-size: 25px;
+  color: white;
+  width: 90%;
+  border: 0;
+  margin: 0;
+  background-color: transparent;
+}
+
+#about .societati-holder button:focus {
+  outline: none;
+}
+
+#about .societati-holder span {
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+  width: 9%;
+  font-size: 25px;
+}
+
+#about .rolldown {
+  height: 350px !important;
+}
+
+#about .societati-rolldown {
+  height: 450px !important;
+  overflow-y: scroll !important;
+}
+
+#about #partners {
+  overflow: hidden;
+  height: 0px;
+  transition: height 0.3s ease-in-out;
+}
+
+#about #partners table {
+  text-align: justify;
+  display: block;
+  margin: auto;
+}
+
+#about #partners table td {
+  width: 50%;
+}
+
+#about #societati {
+  overflow: hidden;
+  height: 0px;
+  transition: height 0.3s ease-in-out;
+}
+
+#about #societati table {
+  text-align: justify;
+  display: block;
+  margin: auto;
+}
+
+#about #societati table td {
+  width: 50%;
+}
+
+@media screen and (max-width: 1140px) {
+  #about #societati table td {
+    width: 100%;
+  }
+}
+
 @media (max-width: 1170px) {
   #about p {
     display: block;
@@ -387,6 +551,89 @@ a:focus, a:hover {
   }
 }
 
+#team h1 {
+  display: inline-block;
+  position: relative;
+  white-space: nowrap;
+}
+
+#team h1::after {
+  margin-top: 5px;
+  content: "";
+  position: absolute;
+  height: 1px;
+  bottom: 0;
+  border-bottom: 2px solid #0989d3;
+  width: 25%;
+  left: 0;
+}
+
+#team .board-member {
+  width: 32.5%;
+  margin-left: 5px;
+  float: left;
+  height: 350px;
+  text-align: justify;
+  font-family: Cabin;
+  transition: background-color 0.3s ease-in-out;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+@media screen and (max-width: 991px) {
+  #team .board-member {
+    width: 100% !important;
+    margin-left: 0;
+  }
+}
+
+#team .board-member .info-holder {
+  background-color: rgba(9, 137, 211, 0.5);
+  width: 100%;
+  transition: background-color 0.3s ease-in-out;
+}
+
+#team .board-member h5 {
+  padding-left: 5px;
+  margin: 0;
+}
+
+#team .board-member img {
+  filter: grayscale(100%);
+  display: block;
+  margin: auto;
+  max-height: 85%;
+  min-height: 85%;
+  width: 100%;
+  object-fit: cover;
+  overflow: hidden;
+  transition: filter 0.3s ease-in-out, transform 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+
+#team .board-member p {
+  margin: 0;
+  padding-left: 5px;
+}
+
+#team .board-member:hover .info-holder {
+  background-color: #0989d3;
+}
+
+#team .board-member:hover img {
+  filter: none;
+}
+
+#team .higher {
+  width: 49%;
+  height: 450px;
+  margin-bottom: 10px;
+}
+
+#team .higher img {
+  max-height: 90%;
+  min-height: 90%;
+}
+
 #how {
   font-family: 'Cabin', 'Helvetica Neue',Helvetica,Arial,sans-serif;
 }
@@ -394,6 +641,7 @@ a:focus, a:hover {
 #how h1 {
   display: inline-block;
   position: relative;
+  white-space: nowrap;
 }
 
 #how h1::after {
@@ -469,20 +717,6 @@ a:focus, a:hover {
   }
   #post #fb-share ._2tga {
     font-size: 26px !important;
-  }
-}
-
-.container {
-  transform: translate(210%, 0%);
-  margin-top: 20px;
-}
-
-@media (max-width: 1170px) {
-  .container .row h1 {
-    display: block !important;
-    width: 50%;
-    margin: auto;
-    margin-bottom: 20px;
   }
 }
 
@@ -594,13 +828,20 @@ img::-moz-selection {
 }
 
 .item {
-  margin-left: 10px;
-  width: 24%;
-  height: 50vh;
+  margin-left: 0px;
+  float: left;
+  width: 277px;
+  height: 470px;
+  overflow: hidden;
   display: block;
   -webkit-transition: background 0.3s ease-in-out, opacity 0.3s ease-in-out;
   -moz-transition: background 0.3s ease-in-out, opacity 0.3s ease-in-out;
   transition: background 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.item img {
+  display: block;
+  margin: auto;
 }
 
 .item .item-image {
@@ -657,8 +898,7 @@ img::-moz-selection {
 @media (max-width: 1170px) {
   .item {
     display: block;
-    width: 95%;
-    height: 100vh;
+    width: 100%;
     margin: auto;
     margin-top: 10px;
   }
@@ -695,6 +935,7 @@ img::-moz-selection {
 #contact h1 {
   display: inline-block;
   position: relative;
+  white-space: nowrap;
 }
 
 #contact h1::after {
@@ -873,4 +1114,24 @@ img::-moz-selection {
   margin: auto;
   margin-top: 5%;
   margin-bottom: 5%;
+}
+
+#myModal .modal-content {
+  background: #1F1F1F;
+}
+
+#myModal #modal-image {
+  display: block;
+  margin: auto;
+  max-height: 85%;
+  min-height: 85%;
+  width: 100%;
+  object-fit: cover;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border-radius: 2px;
+}
+
+#myModal .modal-body {
+  overflow: hidden;
 }

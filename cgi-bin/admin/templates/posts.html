@@ -1,0 +1,65 @@
+<div class="posts-holder">
+    {% for post in posts %}
+        <div class="post-item">
+            <img id="image" src="/admin/img/posts/{{post['picture']}}">
+            <p id="title">{{post['title']}}</p>
+            <p id="description">{{post['timestamp']}}</p>
+            <button type="button" data-id="{{post['id']}}" class="btn btn-primary edit" data-toggle="modal" data-target="#myModal">Edit</button>
+            <button type="button" data-id="{{post['id']}}" class="btn btn-danger delete">Delete</button>
+        </div>
+    {% endfor %}
+
+    <div class="post-item">
+        <div class="add-holder">
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $('.edit').click(function() {
+        window.location.replace('/admin/posts/edit/' + $(this).data('id'))
+    })
+
+    window.sr = ScrollReveal();
+
+    $('.add-holder').click(function() {
+        window.location.replace('/admin/posts/add');
+    });
+
+    i = 0;
+    $('.post-item').each(function() {
+        ++i;
+        sr.reveal($(this), {
+        delay: i * 100
+
+        })
+    });
+
+    $('.delete').click(function() {
+        let id = $(this).data('id')
+        if (!confirm('Sunteti sigur in stergerea postului?')) {
+            return;
+        }
+        $.ajax({
+            url: '/admin/posts/remove',
+            type: 'POST',
+            data: {
+                id: id
+            },
+            success: function (response) {
+                response = JSON.parse(response);
+                if (response['result'] == 200) {
+                    alert('Post sters');
+                    fetch_posts();
+                } else {
+                    alert(response['message'])
+                }
+            },
+            error: function(response) {
+                console.log(response);
+            }
+        })
+    })
+
+</script>

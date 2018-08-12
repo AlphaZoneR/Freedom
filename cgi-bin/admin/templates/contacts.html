@@ -1,0 +1,74 @@
+<div class="contact-holder">
+    <h1>
+        Mesaje de contact
+    </h1>
+
+    <table>
+        <tr>
+            <th>Nume</th>
+            <th>Email</th>
+            <th>Titlu</th>
+            <th>Mesaj</th>
+            <th>Data</th>
+        </tr>
+        {% for user in users %}
+            <tr class="table-data" data-id="{{user['id']}}" data-name="{{user['name']}}" data-email="{{user['email']}}" data-subject="{{user['subject']}}" data-body="{{user['body']}}" data-timestamp="{{user['timestamp']}}">
+                <td><b>{{user['name']}}</b></td>
+                <td><a href="mailto:{{user['email']}}">{{user['email']}}</a></td>
+                <td>{{user['subject']}}</td>
+                <td>{{user['body'][0:25]}}</td>
+                <td>{{user['timestamp']}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Nume</span>
+                    </div>
+                    <input type="text" id="modal-name" class="form-control" aria-label="Nume" disabled="disabled" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Email</span>
+                    </div>
+                    <input type="text" id="modal-email" class="form-control" aria-label="Email" disabled="disabled" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Titlu</span>
+                    </div>
+                    <input type="text" id="modal-title" class="form-control" aria-label="Pozitie" disabled="disabled" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Data</span>
+                    </div>
+                    <input type="text" id="modal-timestamp" class="form-control" aria-label="Pozitie" disabled="disabled" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="form-group">
+                    <label for="modal-body">Mesaj</label>
+                    <textarea class="form-control" id="modal-body" disabled="disabled" rows="3"></textarea>
+                </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $.getScript('/admin/js/contacts.js');
+</script>

@@ -1,0 +1,272 @@
+<div class="board-holder">
+    {% for member in board %}
+        <div class="board-member">
+            <img id="image" src="/admin/img/board/{{member['picture']}}">
+            <p id="name">{{member['name']}}</p>
+            <p id="email">{{member['email']}}</p>
+            <p id="phone">{{member['phone']}}</p>
+            <p id="position">{{member['position']}}</p>
+            <button type="button" class="btn btn-primary edit" data-toggle="modal" data-target="#myModal">Edit</button>
+            <button type="button" class="btn btn-danger delete">Delete</button>
+        </div>
+    {% endfor %}
+
+    <div class="board-member">
+        <div class="add-holder">
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Nume</span>
+                        </div>
+                        <input type="text" id="modal-name" class="form-control" aria-label="Nume" aria-describedby="inputGroup-sizing-sm">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Email</span>
+                        </div>
+                        <input type="text" id="modal-email" class="form-control" aria-label="Nume" aria-describedby="inputGroup-sizing-sm">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Telefon</span>
+                        </div>
+                        <input type="text" id="modal-phone" class="form-control" aria-label="Telefon" aria-describedby="inputGroup-sizing-sm">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Pozitie</span>
+                        </div>
+                        <input type="text" id="modal-position" class="form-control" aria-label="Pozitie" aria-describedby="inputGroup-sizing-sm">
+                    </div>
+                    
+                    <form id="upload-file" method="post" enctype="multipart/form-data">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <fieldset>
+                                    <input type="file" accept="image/*" class="custom-file-input" id="modal-image-file" name="file" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                                    <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+                                </fieldset>
+                            </div>
+                            <div class="input-group-append">
+                                <fieldset>
+                                    <button class="btn btn-outline-secondary" id="modal-image-upload" type="button" id="inputGroupFileAddon04">Incarca</button>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </form>
+                    <br>
+                    <div class="progress" style="display: none">
+                        <div class="progress-bar" id="upload-progress" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                    <p id="success">Poza a fost incarcata cu succes!</p> 
+                    <p id="eroare">Ceva nu a functionat cum trebuie, va rugam reincercati!</p> 
+                    <div id="image-upload" class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Poza</span>
+                        </div>
+                        <input type="text" disabled="true" id="modal-file-after" class="form-control" aria-label="Poza" aria-describedby="inputGroup-sizing-sm">
+                    </div>
+                    <img id="uploaded-picture" src="//:0" width="100px">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="save-changes" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function build_modal(name, phone, email, position) {
+            if ($('#myModal').data('edit') == "true") {
+                $('.modal-title').html(name);
+                $('#modal-name').val(name);
+                $('#modal-phone').val(phone);
+                $('#modal-email').val(email);
+                $('#modal-position').val(position);
+                $('#upload-progress').css('width', '0%');
+                $('.progress').css('display', 'flex');
+                $('#success').css('display', 'none');
+                $('#eroare').css('display', 'none');
+                $('#uploaded-picture').prop('src', '//:0');
+                $('#image-upload').css('display', 'none');
+                $('#modal-file-after').val('');
+                $('#upload-file').css('display', 'block');
+            } else {
+                $('.modal-title').html('Adaugare membru');
+                $('#modal-name').val('');
+                $('#modal-phone').val('');
+                $('#modal-email').val('');
+                $('#modal-position').val('');
+                $('#upload-file').css('display', 'none');
+            }
+            
+        }
+
+        $('.edit').click(function() {
+            $('#myModal').data('edit', 'true');
+            build_modal(name=$(this).parent().children('#name').html(), phone=$(this).parent().children('#phone').html(), email=$(this).parent().children('#email').html(), position=$(this).parent().children('#position').html());
+        })
+
+        i = 0;
+        $('.board-member').each(function() {
+            ++i;
+            sr.reveal($(this), {
+            delay: i * 100
+
+            })
+        });
+
+        $('.delete').click(function() {
+            let del = confirm('Sunteti sigur ca doriti sa stergeti ' + $(this).parent().children('#name').html() + '?')
+            if (del) {
+                $.post(
+                    url='/admin/board/remove',
+                    data={
+                        name: $(this).parent().children('#name').html(),
+                        email: $(this).parent().children('#email').html()
+                    },
+                    success=(response) => {
+                        response = JSON.parse(response);
+
+                        if (response['result'] == 200) {
+                            $('#myModal').modal('hide')
+                            setTimeout(() => {
+                                fetch_board();
+                            }, 200);
+                        } else {
+                            alert('A aparut o eroare, va rugam reincercati!\n' + response['message'])
+                        }
+                        
+                    }
+                )
+            }
+        })
+
+        $("#modal-image-upload").click(() => {
+            let form_data = new FormData($('#upload-file')[0]);
+            $.ajax({
+                url: '/admin/upload/board',
+                type: 'POST',
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                xhr: function() {
+                    var xhr = new window.XMLHttpRequest();
+                    $('#upload-progress').css('width', '0%')
+                    $('.progress').css('display', 'flex')
+                    $('#success').css('display', 'none')
+                    $('#eroare').css('display', 'none')
+                    xhr.upload.addEventListener("progress", function(evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = evt.loaded / evt.total;
+                            percentComplete = parseInt(percentComplete * 100);
+                            $('#upload-progress').css('width', String(percentComplete) + '%')
+
+                            if (percentComplete === 100) {
+                                $('.progress').css('display', 'none')
+                            }
+
+                        }
+                    }, false);
+
+                    return xhr;
+                },
+                success: (response) => {
+                    response = JSON.parse(response)
+                    if (response['result'] == 200) {
+                        console.log('here')
+                        $('#eroare').css('display', 'none');
+                        $('#success').css('display', 'block');
+                        $('#modal-file-after').val(response['filename'])
+                        $('#image-upload').css('display', 'flex')
+                        $('#uploaded-picture').prop('src', '/admin/img/board/' + response['filename'])
+                    } else {
+                        $('#sucess').css('display', 'none');
+                        $('#eroare').css('display', 'block');
+                        $('#eroare').html($('#eroare').html() + '<br>' + response['message'])
+                    }
+                },
+                error: (response) => {console.log(response)}
+            })
+        })
+
+        $('#save-changes').click(() => {
+            let image_name = 'default.png'
+            if ($('#uploaded-picture').prop('src') != '//:0') {
+                image_name = $('#uploaded-picture').prop('src');
+            }
+            
+            if ($('#myModal').data('edit') == "true") {
+                $.ajax({
+                    url: '/admin/board/update',
+                    type: 'POST',
+                    data: {
+                        old_name: $('.modal-title').html(),
+                        name: $('#modal-name').val(),
+                        email: $('#modal-email').val(),
+                        phone: $('#modal-phone').val(),
+                        position: $('#modal-position').val(),
+                        image: image_name,
+                    },
+                    success: (response) => {
+                        response = JSON.parse(response);
+                        if (response['result'] == 200) {
+                            $('#myModal').modal('hide')
+                            setTimeout(() => {
+                                fetch_board();
+                            }, 200);
+                        } else {
+                            alert('A aparut o eroare, va rugam reincercati!\n' + response['message'])
+                        }
+                        
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: '/admin/board/add',
+                    type: 'POST',
+                    data: {
+                        old_name: $('.modal-title').html(),
+                        name: $('#modal-name').val(),
+                        email: $('#modal-email').val(),
+                        phone: $('#modal-phone').val(),
+                        position: $('#modal-position').val(),
+                        image: image_name,
+                    },
+                    success: (response) => {
+                        response = JSON.parse(response);
+                        $('#myModal').modal('hide')
+                        setTimeout(() => {
+                            fetch_board();
+                        }, 200);
+                    }
+                })
+            }
+
+           
+        })
+
+        $(".add-holder").click(function() {
+            $('#myModal').data('edit', 'false');
+            build_modal();
+            $('#myModal').modal('show');
+        });
+    </script>
+</div>

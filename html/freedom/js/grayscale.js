@@ -31,6 +31,7 @@
     last_scroll = st;
   })
   
+  
 
   // Closes responsive menu when a scroll trigger link is clicked
   $('.js-scroll-trigger').click(function() {
@@ -56,6 +57,24 @@
   // Collapse the navbar when page is scrolled
   $(window).scroll(navbarCollapse);
 
+  $('.partner-holder').click(function() {
+    console.log('here');
+    if ($('#partners').attr('class').search('rolldown') != -1) {
+      $('#partners').removeClass('rolldown');
+    } else {
+      $('#partners').addClass('rolldown');
+    }
+  })
+
+  $('.societati-holder').click(function() {
+    console.log('here');
+    if ($('#societati').attr('class').search('societati-rolldown') != -1) {
+      $('#societati').removeClass('societati-rolldown');
+    } else {
+      $('#societati').addClass('societati-rolldown');
+    }
+  })
+  
 })(jQuery); // End of use strict
 
 
@@ -202,6 +221,29 @@ function init() {
     }]
   };
 
+  $.ajax({
+    url: '/freedom/api/board/get',
+    type: 'GET',
+    success: function(response) {
+      $('.team-holder').html(response);
+    },
+    error: function (response) {
+      console.log(response)
+    }
+  })
+
+  $.ajax({
+    url: '/static/societati.html',
+    type: 'GET',
+    success: function(response) {
+      $('#societati').html(response);
+    },
+    error: function (response) {
+      console.log(response)
+    }
+  })
+
+
   $('#fb-share').click(function() {
     FB.ui({
       method: 'feed',
@@ -217,20 +259,36 @@ function init() {
     $('.intro-text').css('transform', text);
     $('.brand-heading').css('transform', text);
   })
-
+  
+  console.log('here')
+  
   window.sr = ScrollReveal();
 
   sr.reveal('.container', {
     delay: 200
   })
 
+
   var i = 0;
   $('.specialization').each(function() {
     ++i;
     sr.reveal($(this), {
-      delay: i * 500
-     
+      delay: i * 500,
+      rotate: {
+        x: 0.0,
+        y: 20.0,
+        z: 0.0
+      },
+      scale: 1.01
     })
+  })
+
+  sr.reveal('.societati-holder', {
+    delay: 500
+  })
+
+  sr.reveal('.partner-holder', {
+    delay: 300
   })
 
   i = 0;
@@ -239,7 +297,7 @@ function init() {
     sr.reveal($(this), {
       useDelay: 'once',
       delay: i * 100,
-      reset: false
+      reset: false,
     })
   })
 
@@ -247,19 +305,11 @@ function init() {
   sr.reveal('#contact')
 
   $("#mainNav").find(".container").css('opacity', '1')
-  
-  // new nicEditor({
-  //   fullPanel : true
-  // })
-  
-  // bkLib.onDomLoaded(function() { 
-  //   nicEditors.allTextAreas()
-  // });
-  
+
   $("#mainNav").addClass('float_in');
   $('#mainNav').find('.container').addClass('float_in')
   $("#info").addClass('float_in');
-  
+
 
   $('.item').mouseenter(function (event) {
     $('.item').addClass('faded');
@@ -380,4 +430,5 @@ function init() {
     return !error
   }
 }
+
 

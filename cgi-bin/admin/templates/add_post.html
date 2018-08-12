@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Cabin:700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" media="screen" href="/admin/css/addpost.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/admin/css/froala_editor.pkgd.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/admin/css/froala_style.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Adaugare postare</title>
+</head>
+<body>
+    <div class="edit-holder">
+        <hr>
+        <a href="/#posts"><button type="button" id="back" class="btn btn-primary btn-lg btn-block">Inapoi</button></a>
+        <hr>
+        <h1><abbr title="attribute">Adaugare postare</abbr></h1>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Titlu</span>
+            </div>
+            <input type="text" id="post-title" class="form-control" value="" aria-label="Titlu" aria-describedby="inputGroup-sizing-sm">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Postat</span>
+            </div>
+            <input type="text" disabled="disabled" id="post-creation" class="form-control" value="" aria-label="Postat" aria-describedby="inputGroup-sizing-sm">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Creator</span>
+            </div>
+            <input type="text" disabled="disabled" id="post-creation" class="form-control" value="{{user['name']}}" aria-label="Postat" aria-describedby="inputGroup-sizing-sm">
+        </div>        
+        <div class="form-group">
+            <textarea class="form-control" id="textarea-edit" rows="15"></textarea>
+        </div>
+        
+        <form id="upload-image" method="post" enctype="multipart/form-data">
+            <div class="input-group">
+                <div class="custom-file">
+                    <fieldset>
+                        <input type="file" accept="image/*" class="custom-file-input" id="modal-image-file" name="file" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                        <label class="custom-file-label" for="inputGroupFile04">Adauga imagine                                    </label>
+                    </fieldset>
+                </div>
+                <div class="input-group-append">
+                    <fieldset>
+                        <button class="btn btn-outline-secondary" id="image-upload" type="button" id="inputGroupFileAddon04">Incarca</button>
+                    </fieldset>
+                </div>
+            </div>
+        </form>
+        <br>
+        <hr>
+        <div class="progress" style="display: none">
+            <div class="progress-bar" id="upload-progress" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <button type="button" id="preview" class="btn btn-primary btn-lg btn-block">Previzualizare</button>
+
+        <div class="preview-content">
+
+        </div>
+        <hr>
+        <button type="button" id="save" class="btn btn-primary btn-lg btn-block">Salvare</button>
+        <hr>
+        
+    </div>
+
+    
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="/admin/js/froala_editor.pkgd.min.js"></script>
+    <script>
+        let images = []
+        $('#textarea-edit').froalaEditor({
+            shortcutsEnabled: ['bold', 'italic'],
+            height: 600
+        });
+        
+        $('#insertVideo-1').hide();
+        $('#insertImage-1').hide();
+        $('#insertFile-1').hide();
+        $('#emoticons-1').hide();
+        $('#save').hide();
+
+        $('#textarea-edit').froalaEditor('html.set', '');
+
+        $('#image-upload').click(function () {
+            let form_data = new FormData($('#upload-image')[0]);
+            $.ajax({
+                url: '/admin/upload/edit',
+                type: 'POST',
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                xhr: function() {
+                    $('.progress').show();
+                    $('#upload-progress').css('width', '0%');
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener('progress', function(evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = evt.loaded / evt.total;
+                            percentComplete = parseInt(percentComplete * 100);
+                            $('#upload-progress').css('width', String(percentComplete) + '%');
+
+                        }
+                    }, false);
+
+                    return xhr;
+                },
+                success: (response) => {
+                    response = JSON.parse(response);
+                    if (response['result'] == 200) {
+                        $('#textarea-edit').froalaEditor('image.insert', '/admin/img/temp/' + response['filename']);
+                        images.push(response['filename']);
+                        $('.progress').fadeOut();
+                    }
+                },
+                error: (response) => {console.log(response)}
+            })
+        });
+
+        $('#preview').click(function() {
+            if ($('.preview-content').css('display') == "none") {
+                $('.preview-content').fadeIn();
+                $("#save").fadeIn();
+                $('.preview-content').html($('#textarea-edit').froalaEditor('html.get'));
+            } else {
+                $('.preview-content').fadeOut();
+                $("#save").fadeOut();
+                $('.preview-content').html($('#textarea-edit').froalaEditor('html.get'));
+            }
+        });
+
+        $('#textarea-edit').on('froalaEditor.contentChanged', function (e, editor) {
+            $('.preview-content').html($('#textarea-edit').froalaEditor('html.get'));
+        });
+
+        $('#save').click(function() {
+            $('body').css('cursor', 'progress');
+            
+            let picture = 'default.png'
+
+            if (images.length != 0) {
+                picture = images[0];
+            }
+
+            $.ajax({
+                url: '/admin/upload/move',
+                type: 'POST',
+                data: {
+
+                    files: JSON.stringify(images)
+                },
+                success: function (resposne) {
+                    response = JSON.parse(response);
+                    if (response['result'] = 200) {
+                        console.log('hello')
+                    } else {
+                        alert(response['message'])
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+            
+            
+            $.ajax({
+                url: window.location.toString(),
+                type: 'POST',
+                data: {
+                    title: $('#post-title').val(),
+                    body: $('#textarea-edit').froalaEditor('html.get').replace('/img/temp/', '/img/posts/'),
+                    picture: picture
+                },
+                success: function(response) {
+                    response = JSON.parse(response);
+                    setTimeout(function() {
+                        $('body').css('cursor', 'default');
+                        if (response['result'] == 200) {
+                            alert('Postare salvata!');
+                            window.location.replace('/admin/posts/edit/' + response['message'])
+                        } else {
+                            alert(response['message'])
+                        }
+                    }, 1500);
+                    
+                    
+                },
+                error: function(error) {
+                    console.log('error');
+                    console.log(error);
+                }
+            })
+        });
+    </script>
+</body>
+</html>

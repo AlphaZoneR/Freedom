@@ -1,0 +1,51 @@
+<div class = "board-member higher" data-name="{{board[0].name}}", data-email="{{board[0].email}}" data-position="{{board[0].position}}" data-phone="{{board[0].phone}}" data-img="/freedom/api/board/img/{{board[0].picture}}">
+    <img src="/freedom/api/board/img/{{board[0].picture}}">
+    <div class="info-holder">
+        <h5 class="board-name">{{board[0].name}}</h5>
+        <!-- <p class="board-email"><a href="mailto:{{board[0].email}}">{{board[0].email}}</a></p> -->
+        <p class="board-position">{{board[0].position}}</p>
+        <!-- <p class="board-phone"><a href="tel:{{board[0].phone}}">{{board[0].phone}}</a></p> -->
+    </div>
+</div>
+
+<div class = "board-member higher" data-name="{{board[1].name}}", data-email="{{board[1].email}}" data-position="{{board[1].position}}" data-phone="{{board[1].phone}}" data-img="/freedom/api/board/img/{{board[1].picture}}">
+        <img src="/freedom/api/board/img/{{board[1].picture}}">
+        <div class="info-holder">
+            <h5 class="board-name">{{board[1].name}}</h5>
+            <!-- <p class="board-email"><a href="mailto:{{board[1].email}}">{{board[1].email}}</a></p> -->
+            <p class="board-position">{{board[1].position}}</p>
+            <!-- <p class="board-phone"><a href="tel:{{board[1].phone}}">{{board[1].phone}}</a></p> -->
+        </div>
+    </div>
+
+
+{% for member in board[2:] %}
+    <div class = "board-member" data-name="{{member.name}}", data-email="{{member.email}}" data-position="{{member.position}}" data-phone="{{member.phone}}" data-img="/freedom/api/board/img/{{member.picture}}">
+        <img src="/freedom/api/board/img/{{member.picture}}">
+        <div class="info-holder">
+            <h5 class="board-name">{{member.name}}</h5>
+            <!-- <p class="board-email"><a href="mailto:{{member.email}}">{{member.email}}</a></p> -->
+            <p class="board-position">{{member.position}}</p>
+            <!-- <p class="board-phone"><a href="tel:{{member.phone}}">{{member.phone}}</a></p> -->
+        </div>
+
+    </div>
+{% endfor %}
+    
+
+<script>
+    $('.board-member').click(function() {
+        $('.modal-title').html($(this).data('name'));
+        $('#modal-email').html($(this).data('email'));
+        $('#modal-position').html($(this).data('position'));
+        $('#modal-phone').html($(this).data('phone'));
+        $('#myModal').modal('show');
+        $("#modal-image").prop('src', $(this).data('img'))
+    })
+    $('.board-member').each(function(i) {
+    sr.reveal($(this), {
+      delay: i * 100
+     
+    })
+  })
+</script>

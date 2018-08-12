@@ -1,0 +1,45 @@
+body {
+  background-color: #f1f1f1 !important;
+}
+
+body .edit-holder {
+  width: 1140px;
+  padding: 5px 5px 5px 5px;
+  margin: auto;
+  margin-top: 40px;
+}
+
+body .edit-holder h1 {
+  text-align: center;
+}
+
+@media (max-width: 1140px) {
+  body .edit-holder {
+    width: 95%;
+  }
+}
+
+body .edit-holder .preview-content {
+  width: 100%;
+  margin-top: 20px;
+  padding: 5px 5px 5px 5px;
+  display: none;
+}
+
+@media (max-width: 960px) {
+  body .edit-holder .preview-content img {
+    width: 100% !important;
+  }
+}
+
+body .edit-holder .progress {
+  margin-bottom: 20px;
+}
+
+body .edit-holder #preview {
+  margin-bottom: 10px;
+}
+
+body .edit-holder #save {
+  margin-bottom: 10px;
+}
