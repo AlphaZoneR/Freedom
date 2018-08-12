@@ -1,13 +1,22 @@
 {% for i in range(posts| length) %}
 
 <div class="post-item">
-    <h1 class="post-title">{{posts[i]['title']}}</h1>
     <img src="/freedom/api/post/img/{{posts[i]['picture']}}">
-    <p class="post-info">{{posts[i]['body'][0:25]}}</p>
-    <p>Postat de {{authors[i]['name']}} la {{posts[i]['timestamp']}}</p>
+    <p class="post-title text-justify">{{posts[i]['title']}}</p>
+    <div class="post-body">{{posts[i]['body']| safe}}</div>
+    <p class="post-info">Postat de <abbr title="attribute">{{authors[i]['name']}}</abbr> la {{posts[i]['timestamp']}}</p>
 </div>
-
-{{post}}
 
 {% endfor %}
 
+<script>
+    i = 0;
+    $('.post-item').each(function() {
+        ++i;
+        sr.reveal($(this), {
+        useDelay: 'once',
+        delay: i * 100,
+        reset: false,
+        })
+    })
+</script>

@@ -1,8 +1,8 @@
-(function($) {
+(function ($) {
   "use strict"; // Start of use strict
 
   // Smooth scrolling using jQuery easing
-  $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
+  $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function () {
     if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
       var target = $(this.hash);
       target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
@@ -17,7 +17,7 @@
 
   var last_scroll = 0;
 
-  $(window).scroll(function(event) {
+  $(window).scroll(function (event) {
     var st = $(this).scrollTop();
 
     if (st > last_scroll) {
@@ -30,11 +30,11 @@
 
     last_scroll = st;
   })
-  
-  
+
+
 
   // Closes responsive menu when a scroll trigger link is clicked
-  $('.js-scroll-trigger').click(function() {
+  $('.js-scroll-trigger').click(function () {
     $('.navbar-collapse').collapse('hide');
   });
 
@@ -45,7 +45,7 @@
   });
 
   // Collapse Navbar
-  var navbarCollapse = function() {
+  var navbarCollapse = function () {
     if ($("#mainNav").offset().top > 100) {
       $("#mainNav").addClass("navbar-shrink");
     } else {
@@ -57,7 +57,7 @@
   // Collapse the navbar when page is scrolled
   $(window).scroll(navbarCollapse);
 
-  $('.partner-holder').click(function() {
+  $('.partner-holder').click(function () {
     console.log('here');
     if ($('#partners').attr('class').search('rolldown') != -1) {
       $('#partners').removeClass('rolldown');
@@ -66,7 +66,7 @@
     }
   })
 
-  $('.societati-holder').click(function() {
+  $('.societati-holder').click(function () {
     console.log('here');
     if ($('#societati').attr('class').search('societati-rolldown') != -1) {
       $('#societati').removeClass('societati-rolldown');
@@ -74,24 +74,15 @@
       $('#societati').addClass('societati-rolldown');
     }
   })
-  
+
 })(jQuery); // End of use strict
-
-
-(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
 
 // Google Maps Scripts
 var map = null;
 // When the window has finished loading create our google map below
 google.maps.event.addDomListener(window, 'load', init);
-google.maps.event.addDomListener(window, 'resize', function() {
-  map.setCenter(new google.maps.LatLng(46.779904, 23.605433));
+google.maps.event.addDomListener(window, 'resize', function () {
+  map.setCenter(new google.maps.LatLng(46.778466, 23.640811));
 });
 
 function init() {
@@ -102,7 +93,7 @@ function init() {
     zoom: 15,
 
     // The latitude and longitude to center the map (always required)
-    center: new google.maps.LatLng(46.779904, 23.605433), // New York
+    center: new google.maps.LatLng(46.778466, 23.640811), // New York
 
     // Disables the default Google Maps UI components
     disableDefaultUI: true,
@@ -224,8 +215,19 @@ function init() {
   $.ajax({
     url: '/freedom/api/board/get',
     type: 'GET',
-    success: function(response) {
+    success: function (response) {
       $('.team-holder').html(response);
+    },
+    error: function (response) {
+      console.log(response)
+    }
+  })
+
+  $.ajax({
+    url: '/freedom/api/post/get',
+    type: 'GET',
+    success: function (response) {
+      $('#news-holder').html(response);
     },
     error: function (response) {
       console.log(response)
@@ -235,7 +237,7 @@ function init() {
   $.ajax({
     url: '/static/societati.html',
     type: 'GET',
-    success: function(response) {
+    success: function (response) {
       $('#societati').html(response);
     },
     error: function (response) {
@@ -244,7 +246,7 @@ function init() {
   })
 
 
-  $('#fb-share').click(function() {
+  $('#fb-share').click(function () {
     FB.ui({
       method: 'feed',
       link: document.URL,
@@ -254,14 +256,14 @@ function init() {
     })
   })
 
-  $('.intro-body').mousemove(function(event) {
-    var text = 'translate(' + String( - event.clientX / 75) + 'px, ' + String(-event.clientY / 75) + 'px)';
+  $('.intro-body').mousemove(function (event) {
+    var text = 'translate(' + String(-event.clientX / 75) + 'px, ' + String(-event.clientY / 75) + 'px)';
     $('.intro-text').css('transform', text);
     $('.brand-heading').css('transform', text);
   })
-  
+
   console.log('here')
-  
+
   window.sr = ScrollReveal();
 
   sr.reveal('.container', {
@@ -269,8 +271,10 @@ function init() {
   })
 
 
+
+
   var i = 0;
-  $('.specialization').each(function() {
+  $('.specialization').each(function () {
     ++i;
     sr.reveal($(this), {
       delay: i * 500,
@@ -292,7 +296,7 @@ function init() {
   })
 
   i = 0;
-  $('.item').each(function() {
+  $('.item').each(function () {
     ++i;
     sr.reveal($(this), {
       useDelay: 'once',
@@ -300,6 +304,9 @@ function init() {
       reset: false,
     })
   })
+
+
+
 
 
   sr.reveal('#contact')
@@ -327,26 +334,26 @@ function init() {
   $($('.text-area').children()[0]).focus(check_contact_data);
   $($('.text-area').children()[0]).focusout(check_contact_data)
 
-  $('#submit-contact').click(function() {
+  $('#submit-contact').click(function () {
     var ok = check_contact_data()
     if (ok) {
       $.post({
         url: '/freedom/api/contact/add',
         type: 'POST',
         data: {
-          'fname':  $($('.name-area').children()[0]).val(),
-          'lname':  $($('.name-area').children()[1]).val(),
+          'fname': $($('.name-area').children()[0]).val(),
+          'lname': $($('.name-area').children()[1]).val(),
           'email': $($('.email-area').children()[0]).val(),
           'subject': $($('.subject-area').children()[0]).val(),
           'body': $($('.text-area').children()[0]).val()
         },
-        success: function(response) {
+        success: function (response) {
           response = JSON.parse(response);
           if (response['status'] == 'OK') {
             $('.success-div').addClass('visible');
           }
         },
-        error: function(error){
+        error: function (error) {
           $('.error-div').children[0].html('În acest moment nu se poate trimite formularul!<br>Vâ rugâm încercaţi mai tărziu!')
           $('.error-div').addClass('visible')
         }
@@ -363,7 +370,7 @@ function init() {
 
   // Custom Map Marker Icon - Customize the map-marker.png file to customize your icon
   var image = 'img/map-marker.svg';
-  var myLatLng = new google.maps.LatLng(46.779904, 23.605433);
+  var myLatLng = new google.maps.LatLng(46.778466, 23.640811);
   var beachMarker = new google.maps.Marker({
     position: myLatLng,
     map: map,
@@ -380,7 +387,7 @@ function init() {
     $($('.subject-area').children()[0]).removeClass('input-error');
     $($('.text-area').children()[0]).removeClass('input-error');
     $('.error-div').removeClass('visible');
-    
+
     if ($($('.name-area').children()[0]).val().length == 0) {
       $($('.name-area').children()[0]).addClass('input-error');
       $($('.name-area').children()[0]).removeClass('input-okay');
@@ -406,16 +413,16 @@ function init() {
     }
 
 
-    if ($($('.subject-area').children()[0]).val().length == 0){
-      
+    if ($($('.subject-area').children()[0]).val().length == 0) {
+
       $($('.subject-area').children()[0]).addClass('input-error');
       $($('.subject-area').children()[0]).removeClass('input-okay');
       error = true;
     } else {
       $($('.subject-area').children()[0]).addClass('input-okay');
     }
-    
-    if ($($('.text-area').children()[0]).val().length == 0){
+
+    if ($($('.text-area').children()[0]).val().length == 0) {
       $($('.text-area').children()[0]).addClass('input-error');
       $($('.text-area').children()[0]).removeClass('input-okay');
       error = true;
@@ -430,5 +437,3 @@ function init() {
     return !error
   }
 }
-
-

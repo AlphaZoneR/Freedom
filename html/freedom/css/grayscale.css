@@ -23,7 +23,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Cabin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 700;
   margin: 0 0 35px;
   letter-spacing: 1px;
@@ -57,13 +57,18 @@ a:focus, a:hover {
 }
 
 #mainNav {
-  font-family: 'Cabin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  visibility: visible !important;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   margin-bottom: 0;
   transform: translate(100%, 0px);
   text-transform: uppercase;
   -webkit-transition: background 0.3s ease-in-out, padding-top 0.3s ease-in-out, padding-bottom 0.3s, transform 0.5s ease-in-out, opacity 0.3s ease-in-out, height 0.3s ease-in-out;
   -moz-transition: background 0.3s ease-in-out, padding-top 0.3s ease-in-out, padding-bottom 0.3s, opacity 0.3s ease-in-out, height 0.3s ease-in-out;
   transition: background 0.3s ease-in-out, padding-top 0.3s ease-in-out, padding-bottom 0.3s, margin-left 0.3s ease-in-out, margin-right 0.3s ease-in-out, transform 0.5s ease-in-out, opacity 0.3s ease-in-out, height 0.3s ease-in-out;
+}
+
+#mainNav .container {
+  opacity: 1 !important;
 }
 
 #mainNav .navbar-toggler {
@@ -84,17 +89,18 @@ a:focus, a:hover {
   -webkit-transition: background 0.3s ease-in-out;
   -moz-transition: background 0.3s ease-in-out;
   transition: background 0.3s ease-in-out;
+  background: #151515;
 }
 
 #mainNav .navbar-nav .nav-item:hover {
   color: fade(white, 80%);
   outline: none;
-  background-color: transparent;
+  background: #151515;
 }
 
 #mainNav .navbar-nav .nav-item:active, #mainNav .navbar-nav .nav-item:focus {
   outline: none;
-  background-color: transparent;
+  background: #151515;
 }
 
 #mainNav .navbar-brand {
@@ -334,7 +340,7 @@ a:focus, a:hover {
   margin-top: 10px;
   margin-bottom: 10px;
   padding-top: 10px;
-  font-family: Cabin,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-family: Open Sans, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -344,7 +350,7 @@ a:focus, a:hover {
 }
 
 #special .row .spec-desc {
-  font-family: Cabin,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-family: Open Sans, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   padding: 5px 5px 5px 5px;
   margin-bottom: 10px;
   text-align: justify;
@@ -360,7 +366,8 @@ a:focus, a:hover {
 }
 
 #about {
-  font-family: 'Cabin', 'Helvetica Neue',Helvetica,Arial,sans-serif;
+  background-color: #1c1c1c;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 #about h1 {
@@ -396,7 +403,7 @@ a:focus, a:hover {
 }
 
 #about .partner-holder {
-  width: 1140px;
+  width: 1170px;
   border: 1px solid white;
   border-left: none;
   border-right: none;
@@ -404,7 +411,7 @@ a:focus, a:hover {
   transition: background-color 0.3s ease-in-out;
 }
 
-@media screen and (max-width: 1140px) {
+@media screen and (max-width: 1170px) {
   #about .partner-holder {
     width: 100%;
   }
@@ -445,7 +452,7 @@ a:focus, a:hover {
 }
 
 #about .societati-holder {
-  width: 1140px;
+  width: 1170px;
   border: 1px solid white;
   border-left: none;
   border-right: none;
@@ -455,7 +462,7 @@ a:focus, a:hover {
   transition: background-color 0.3s ease-in-out;
 }
 
-@media screen and (max-width: 1140px) {
+@media screen and (max-width: 1170px) {
   #about .societati-holder {
     width: 100%;
   }
@@ -536,7 +543,7 @@ a:focus, a:hover {
   width: 50%;
 }
 
-@media screen and (max-width: 1140px) {
+@media screen and (max-width: 1170px) {
   #about #societati table td {
     width: 100%;
   }
@@ -574,7 +581,7 @@ a:focus, a:hover {
   float: left;
   height: 350px;
   text-align: justify;
-  font-family: Cabin;
+  font-family: Open Sans;
   transition: background-color 0.3s ease-in-out;
   margin-bottom: 5px;
   text-align: center;
@@ -635,7 +642,7 @@ a:focus, a:hover {
 }
 
 #how {
-  font-family: 'Cabin', 'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 #how h1 {
@@ -730,8 +737,141 @@ a:focus, a:hover {
   background-size: cover;
 }
 
-.content-section {
-  border-bottom: 1px solid silver;
+#news {
+  margin-top: 20px;
+}
+
+#news h1 {
+  display: inline-block;
+  position: relative;
+  white-space: nowrap;
+}
+
+#news h1::after {
+  margin-top: 5px;
+  content: "";
+  position: absolute;
+  height: 1px;
+  bottom: 0;
+  border-bottom: 2px solid #0989d3;
+  width: 25%;
+  left: 0;
+}
+
+#news #news-holder {
+  width: 100%;
+}
+
+#news #news-holder .post-title {
+  padding: 5px 5px 5px 5px;
+  color: #0989d3;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  font-family: Open Sans, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: justify;
+  -webkit-transition: font-size 0.3s ease-in-out, padding-left 0.3s ease-in-out;
+  -moz-transition: font-size 0.3s ease-in-out, padding-left 0.3s ease-in-out;
+  transition: font-size 0.3s ease-in-out, padding-left 0.3s ease-in-out;
+}
+
+#news #news-holder .post-item {
+  height: 400px;
+  width: 33.33%;
+  float: left;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 5px;
+  -webkit-transition: background 0.3s ease-in-out, padding-top 0.3s ease-in-out, filter 0.3s ease-in-out;
+  -moz-transition: background 0.3s ease-in-out, padding-top 0.3s ease-in-out, filter 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out, padding-top 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+#news #news-holder .post-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+}
+
+#news #news-holder .post-item:hover .post-title {
+  padding-left: 4%;
+  text-decoration: underline;
+}
+
+#news #news-holder .post-item:hover .spec-link {
+  opacity: 1;
+}
+
+#news #news-holder .post-item:hover img {
+  filter: blur(0px);
+  max-height: 38%;
+  min-height: 38%;
+}
+
+#news #news-holder .post-item:hover .post-body {
+  filter: blur(0px);
+}
+
+#news #news-holder .post-item .overlay {
+  position: absolute;
+  max-height: 30%;
+  min-height: 30%;
+  width: 100%;
+  background: red;
+}
+
+#news #news-holder .post-item .post-title {
+  max-height: 15%;
+  height: 15%;
+  overflow: hidden;
+}
+
+#news #news-holder .post-item .post-info {
+  font-size: 13px;
+}
+
+#news #news-holder .post-item .post-body {
+  font-family: 'Open Sans';
+  font-weight: 150;
+  height: 30%;
+  overflow: hidden;
+  text-align: justify;
+  margin-bottom: 20px;
+  transition: filter 0.3s ease-in-out;
+}
+
+#news #news-holder .post-item .post-body img {
+  display: none;
+  width: 0%;
+  height: 0%;
+}
+
+#news #news-holder .post-item img {
+  filter: blur(0.2px);
+  display: block;
+  margin: auto;
+  max-height: 30%;
+  min-height: 30%;
+  width: 100%;
+  object-fit: cover;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out, min-height 0.3s ease-in-out, height 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 1170px) {
+  #news #news-holder .post-item {
+    width: 100%;
+    padding: 0;
+    background: transparent;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #0989d3;
+  }
+  #news #news-holder .post-item:hover img {
+    max-height: 30%;
+    min-height: 30%;
+  }
 }
 
 @media (min-width: 992px) {
@@ -746,7 +886,7 @@ a:focus, a:hover {
 }
 
 .btn {
-  font-family: 'Cabin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 400;
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
@@ -790,8 +930,38 @@ ul.banner-social-buttons {
 }
 
 footer {
-  padding: 20px 0;
   background-color: rgba(9, 137, 211, 0.7);
+}
+
+footer .content-section {
+  margin-top: none !important;
+  margin-bottom: none !important;
+}
+
+footer .navigation {
+  padding-top: 5%;
+  padding-bottom: 5%;
+  width: 100%;
+  background: #131313;
+}
+
+@media screen and (max-width: 1170px) {
+  footer .navigation div {
+    text-align: center !important;
+    margin-top: 20px;
+  }
+}
+
+footer .navigation h4 {
+  text-transform: none;
+  margin-bottom: 10px;
+}
+
+footer .navigation a {
+  font-family: 'Open Sans';
+  float: none;
+  white-space: pre-wrap;
+  display: block;
 }
 
 footer p {
@@ -809,22 +979,6 @@ footer p {
   background: #fcfcfc;
   background: rgba(255, 255, 255, 0.2);
   text-shadow: none;
-}
-
-.nicEdit-pane {
-  color: black;
-}
-
-.nicEdit-selectTxt {
-  color: black;
-}
-
-img::selection {
-  background: transparent;
-}
-
-img::-moz-selection {
-  background: transparent;
 }
 
 .item {
@@ -867,7 +1021,7 @@ img::-moz-selection {
   margin-top: 10px;
   margin-bottom: 10px;
   padding-top: 10px;
-  font-family: Cabin,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-family: Open Sans, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   text-align: center;
   font-size: 25px;
   font-weight: 700;
@@ -884,7 +1038,7 @@ img::-moz-selection {
   text-align: justify;
   display: block;
   margin: auto;
-  font-family: Cabin,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-family: Open Sans, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .item:hover {
@@ -928,8 +1082,14 @@ img::-moz-selection {
   opacity: 0.3 !important;
 }
 
+section {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 #contact {
-  font-family: 'Cabin', 'Helvetica Neue',Helvetica,Arial,sans-serif;
+  background-color: #1c1c1c;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 #contact h1 {
@@ -978,14 +1138,14 @@ img::-moz-selection {
 #contact .container .left .error-div {
   display: none;
   color: red;
-  font-family: 'Cabin', 'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 15px;
 }
 
 #contact .container .left .success-div {
   display: none;
   color: greenyellow;
-  font-family: 'Cabin', 'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 15px;
 }
 
@@ -998,7 +1158,7 @@ img::-moz-selection {
   border: none;
   outline: none;
   color: white;
-  font-family: 'Cabin', 'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 25px;
   border: 2px solid silver;
   margin-bottom: 10px;
@@ -1035,7 +1195,7 @@ img::-moz-selection {
   color: white;
   height: 300px;
   padding: 10px 10px 10px 10px;
-  font-family: 'Cabin', 'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   border: 2px solid silver;
   border-radius: 2px;
   transition: background 0.3s ease-in-out, border 0.3s ease-in-out, height 0.3s ease-in-out, min-height 0.3s ease-in-out;
@@ -1050,7 +1210,7 @@ img::-moz-selection {
 
 #contact .container .left button {
   background: transparent;
-  font-family: 'Cabin', 'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 25px;
   color: silver;
   border-radius: 2px;
