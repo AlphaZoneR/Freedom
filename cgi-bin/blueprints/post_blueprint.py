@@ -1,4 +1,4 @@
-from flask import Response, Blueprint, abort, request
+from flask import Response, Blueprint, abort, request, render_template
 from models.post_model import Post
 
 import json
@@ -17,4 +17,4 @@ post_blueprint = Blueprint('post_blueprint', __name__)
 @post_blueprint.route('/get', methods=['GET'])
 def get_all():
 
-    return Response(repr(Post.all().all()[0]))
+    return render_template('get_post.html', posts=Post.all().all())
