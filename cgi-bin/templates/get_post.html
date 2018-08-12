@@ -1,9 +1,10 @@
-{% for post in posts %}
+{% for i in range(len(posts)) %}
 
 <div class="post-item">
-    <h1 class="post-title">{{post['title']}}</h1>
-    <img src="/freedom/api/post/img/{{post['picture']}}">
-    <p class="post-info">{{post['body'][0:25]}}</p>
+    <h1 class="post-title">{{posts[i]['title']}}</h1>
+    <img src="/freedom/api/post/img/{{posts[i]['picture']}}">
+    <p class="post-info">{{posts[i]['body'][0:25]}}</p>
+    {{authors[i]}}
 </div>
 
 {{post}}
