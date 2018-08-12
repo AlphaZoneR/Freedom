@@ -1,5 +1,6 @@
 from flask import Response, Blueprint, abort, request, render_template, send_from_directory
 from models.post_model import Post
+from models.user_model import User
 
 import json
 
@@ -17,7 +18,7 @@ post_blueprint = Blueprint('post_blueprint', __name__)
 def get_all():
     authors = []
     for post in Post.all().all():
-        authors.append(post.author)
+        authors.append(Users.get(id=posts.author))
     return render_template('get_post.html', posts=[json.loads(repr(post)) for post in Post.all().all()], authors=authors)
 
 @post_blueprint.route('/img/<img>', methods=['GET'])
