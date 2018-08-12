@@ -16,4 +16,4 @@ post_blueprint = Blueprint('post_blueprint', __name__)
 
 @post_blueprint.route('/get', methods=['GET'])
 def get_all():
-    return Response(Post.all())
+    return Response('hello')
