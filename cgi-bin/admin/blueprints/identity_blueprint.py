@@ -33,3 +33,25 @@ def login():
 def logout():
     session.clear()
     return redirect('/admin/')
+
+@identity_blueprint.route('/edit', methods=['POST'])
+def edit_account():
+    if not check_session():
+        return redirect('/admin/')
+
+    try:
+        return render_template('edit.html', user=User.get(email=session['email'])[0])
+    except Exception as error:
+        return abort(404)
+
+@identity_blueprint.route('/add', methods=['POST'])
+def add_account():
+    if not check_session():
+        return redirect('/admin/')
+    
+    try:
+        user = User(name=request.form['name'], email=request.form['email'], password=sha256(f'{SALT}{request.form["password"]}'.encode()).hexdigest())
+        user.save()
+        return message(200, 'OK')
+    except Exception as error:
+        return message(503, repr(error))

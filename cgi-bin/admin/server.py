@@ -33,7 +33,7 @@ app = Flask(__name__)
 @app.before_request
 def make_session_permanent():
     session.permanent = True
-    app.permanent_session_lifetime = timedelta(days=31)
+    app.permanent_session_lifetime = timedelta(minutes=60)
 
 @app.route('/')
 def index():
@@ -66,6 +66,3 @@ app.config['SESSION_TYPE'] = 'filesystem'
 
 
 CGIHandler().run(app)
-# app.run('localhost', port=8080, debug=True)
-# http_server = WSGIServer(('0.0.0.0', 8080), app)
-# http_server.serve_forever()

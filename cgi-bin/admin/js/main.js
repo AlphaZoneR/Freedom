@@ -1,12 +1,14 @@
 (function($) {
     if (window.location.hash == '#board') {
-        setTimeout(() => {fetch_board()}, 500);
+        setTimeout(() => {fetch_board()}, 0);
     } else if (window.location.hash == '#contacts') {
-        setTimeout(() => {fetch_contacts()}, 500);
+        setTimeout(() => {fetch_contacts()}, 0);
     } else if (window.location.hash == "#posts") {
-        setTimeout(() => {fetch_posts()}, 500);
+        setTimeout(() => {fetch_posts()}, 0);
     } else if (window.location.hash == "#overall") {
-        setTimeout(() => {fetch_overall()}, 500);
+        setTimeout(() => {fetch_overall()}, 0);
+    } else if (window.location.hash == "#edit") {
+        setTimeout(() => (fetch_account_edit(), 0));
     }
 
     $('#contact-button').click(function() {
@@ -34,6 +36,14 @@
     $("#logout-button").click(function () {
         window.location.replace('/logout')
     });
+
+    $('#edit-button').click(function () {
+        fetch_account_edit();
+    });
+
+    $('#register').click(function() {
+        alert('register');
+    })
 
     let i = 0;
    
@@ -80,5 +90,18 @@ function fetch_overall() {
             $('.right').html(response);
         },
         error: function (response) {console.log(response)},
+    })
+}
+
+function fetch_account_edit() {
+    $.ajax({
+        url: 'edit',
+        type: 'POST',
+        success: function (response) {
+            $('.right').html(response);
+        },
+        error: function (error) {
+            console.log(error);
+        }
     })
 }
