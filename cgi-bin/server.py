@@ -4,7 +4,9 @@ from wsgiref.handlers import CGIHandler
 
 import sys
 
-from flask import Flask, Response, abort, request
+from flask import Flask, Response, abort, request, session
+
+from datetime import datetime, timedelta
 
 from _thread import start_new_thread
 
@@ -15,6 +17,13 @@ from blueprints.post_blueprint import post_blueprint
 from time import strftime
 
 app = Flask(__name__)
+app.secret_key = 'VGDd6TMyT3EmwkIA0xGfOVjOvAHb1RSfkAclRpvGou6DEYuvwWmTcAb7kfCA7WWgSA4auZlO3KrBENS7VKQB74CA3B4FdZ6GMuACv3O11MMq24eqBtilAvljJRI14CKDC6ZmO7nTMzCM9fJdDRxWeC4vLy1FOl9ppk4mx7H4eDoGTc8szZsMXN20Ux3pcmtF6GXGnnjHOqPnFhutqcNBLy19akpcVyTEezFO1U4Izc3XOEzD2KjLqeODEqN6nUS2TYhSgqPbZg8pB4lsw2LQS4rLXazx7Al8u7KFjLSGr57WcHBU4Xl8y18FRtm8UgyfLsgSmkWl3Btc2dJsSn0YBr5wmZqhqI05Ug8SUpRo329r2gardnYjVhRSfLBrL5knNU1MtefBy9IaJR5gyDkayzOEjTD9Wi0qOUHHgMC4wSyuoHT2pw1wMn0HgVOCjCjTM9obMgZP2iODfDNwdQF18or8rlBBeJyOPxUiGNd40bxq824Ny4Sa'
+app.config['SESSION_TYPE'] = 'filesystem'
+
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(days=31)
 
 def write_log():
 	f = open('output', 'a')

@@ -1,3 +1,13 @@
+$(document).ajaxStop(function () {
+  $('#loading').fadeOut();
+  $('#mainNav').addClass('float_in');
+});
+
+$(document).ajaxStart(function () {
+  $('#loading').show();
+});
+
+
 (function ($) {
   "use strict"; // Start of use strict
 
@@ -74,7 +84,6 @@
       $('#societati').addClass('societati-rolldown');
     }
   })
-
 })(jQuery); // End of use strict
 
 // Google Maps Scripts
@@ -213,7 +222,7 @@ function init() {
   };
 
   $.ajax({
-    url: '/freedom/api/board/get',
+    url: '/api/board/get',
     type: 'GET',
     success: function (response) {
       $('.team-holder').html(response);
@@ -224,7 +233,7 @@ function init() {
   })
 
   $.ajax({
-    url: '/freedom/api/post/get',
+    url: '/api/post/get',
     type: 'GET',
     success: function (response) {
       $('#news-holder').html(response);
@@ -269,8 +278,6 @@ function init() {
   sr.reveal('.container', {
     delay: 200
   })
-
-
 
 
   var i = 0;
@@ -338,7 +345,7 @@ function init() {
     var ok = check_contact_data()
     if (ok) {
       $.post({
-        url: '/freedom/api/contact/add',
+        url: '/api/contact/add',
         type: 'POST',
         data: {
           'fname': $($('.name-area').children()[0]).val(),

@@ -77,7 +77,6 @@ class Post(BasePost):
     def update(self, **kwargs):
         try:
             db.session.query(Post).filter(Post.id == self.id).update(kwargs)
-            print(db.session.query(Post).filter(Post.id == self.id).all())
             db.session.commit()
             return self
         except Exception as error:

@@ -22,23 +22,18 @@ from models.user_model import User
 from models.post_model import Post
 from utilities.login import *
 
-save_pid()
+from wsgiref.handlers import CGIHandler
 
 User.create()
 Contact.create()
 Board.create()
 Post.create()
-
-
 app = Flask(__name__)
-
-N = 500
-app.secret_key = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(N))
 
 @app.before_request
 def make_session_permanent():
     session.permanent = True
-    app.permanent_session_lifetime = timedelta(minutes=60)
+    app.permanent_session_lifetime = timedelta(days=31)
 
 @app.route('/')
 def index():
@@ -54,7 +49,7 @@ def contacts():
         if check_session():
             return render_template('contacts.html', users=[json.loads(repr(contact)) for contact in Contact.all().order_by(Contact.id.desc()).all()])
     else:
-        return redirect('/login')
+        return redirect('/')
 
 
 app.register_blueprint(identity_blueprint, url_prefix='/')
@@ -66,7 +61,11 @@ app.register_blueprint(post_blueprint, url_prefix='/posts')
 
 app.jinja_env.auto_reload = True
 app.config['TEMPLATES_AUTO_RELOAD'] = True
-# app.run('localhost', port=8080, debug=True)
+app.secret_key = 'VGDd6TMyT3EmwkIA0xGfOVjOvAHb1RSfkAclRpvGou6DEYuvwWmTcAb7kfCA7WWgSA4auZlO3KrBENS7VKQB74CA3B4FdZ6GMuACv3O11MMq24eqBtilAvljJRI14CKDC6ZmO7nTMzCM9fJdDRxWeC4vLy1FOl9ppk4mx7H4eDoGTc8szZsMXN20Ux3pcmtF6GXGnnjHOqPnFhutqcNBLy19akpcVyTEezFO1U4Izc3XOEzD2KjLqeODEqN6nUS2TYhSgqPbZg8pB4lsw2LQS4rLXazx7Al8u7KFjLSGr57WcHBU4Xl8y18FRtm8UgyfLsgSmkWl3Btc2dJsSn0YBr5wmZqhqI05Ug8SUpRo329r2gardnYjVhRSfLBrL5knNU1MtefBy9IaJR5gyDkayzOEjTD9Wi0qOUHHgMC4wSyuoHT2pw1wMn0HgVOCjCjTM9obMgZP2iODfDNwdQF18or8rlBBeJyOPxUiGNd40bxq824Ny4Sa'
+app.config['SESSION_TYPE'] = 'filesystem'
 
-http_server = WSGIServer(('localhost', 8080), app)
-http_server.serve_forever()
+
+CGIHandler().run(app)
+# app.run('localhost', port=8080, debug=True)
+# http_server = WSGIServer(('0.0.0.0', 8080), app)
+# http_server.serve_forever()

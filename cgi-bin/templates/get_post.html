@@ -1,7 +1,7 @@
 {% for i in range(posts| length) %}
 
-<div class="post-item">
-    <img src="/freedom/api/post/img/{{posts[i]['picture']}}">
+<div class="post-item" data-id="{{posts[i]['id']}}">
+    <img src="/api/post/img/{{posts[i]['picture']}}">
     <p class="post-title text-justify">{{posts[i]['title']}}</p>
     <div class="post-body">{{posts[i]['body']| safe}}</div>
     <p class="post-info">Postat de <abbr title="attribute">{{authors[i]['name']}}</abbr> la {{posts[i]['timestamp']}}</p>
@@ -10,6 +10,9 @@
 {% endfor %}
 
 <script>
+    $('.post-item').click(function() {
+        window.location.replace('/api/post/get/' + $(this).data('id'))
+    })
     i = 0;
     $('.post-item').each(function() {
         ++i;
