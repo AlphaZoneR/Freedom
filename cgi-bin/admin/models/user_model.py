@@ -1,5 +1,9 @@
 from models.database import *
 
+from utilities.login import *
+
+import os, sys
+
 class BaseUser(db.Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -32,7 +36,6 @@ class User(BaseUser):
             db.session.rollback()
             return -1
 
-
     def all():
         return db.session.query(User)
     
@@ -43,7 +46,7 @@ class User(BaseUser):
                 result = result.filter(getattr(User, arg) == kwargs[arg])
             return result
         except Exception as error:
-            print(repr(error))
+            Utilities.write_to_log(error)
             return None
     
     def add(**kwargs):
@@ -51,15 +54,18 @@ class User(BaseUser):
             user = User(email=kwargs['email'], password=kwargs['password'], name=kwargs['name'], creation=datetime.now(), last_login=datetime.now(), picture='/img/users/default.png')
             user.save()
         except Exception as error:
-            print(repr(error))
+            Utilities.write_to_log(error)
+
 
     def save(self):
         try:
             db.session.add(self)
             db.session.commit()
+            return True
         except Exception as error:
-            print(repr(error))
+            Utilities.write_to_log(error)
             db.session.rollback()
+            return error
 
     def update(self, **kwargs):
         try:
@@ -67,6 +73,6 @@ class User(BaseUser):
             db.session.commit()
             return self
         except Exception as error:
-            print(error)
+            Utilities.write_to_log(error)
             db.session.rollback()
             return self

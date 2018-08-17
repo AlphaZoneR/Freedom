@@ -3,6 +3,8 @@ if __name__ == '__main__':
 else:
     from models.database import *
 
+from utilities.login import *
+
 class BaseBoard(db.Base):
     __tablename__ = 'board'
     id = Column(Integer, primary_key=True, nullable=False)
@@ -34,6 +36,7 @@ class Board(BaseBoard):
             return count
         except Exception as error:
             db.session.rollback()
+            Utilities.write_to_log(error)
             return -1
 
 
@@ -41,7 +44,7 @@ class Board(BaseBoard):
         try:
             return db.session.query(Board).all()
         except Exception as error:
-            print(error)
+            Utilities.write_to_log(error)
             return False
     
     def get(**kwargs):
@@ -53,7 +56,7 @@ class Board(BaseBoard):
             return result.all()[0]
         except Exception as error:
             db.session.rollback()
-            print(repr(error))
+            Utilities.write_to_log(repr(error))
             return None
     
 
@@ -63,7 +66,7 @@ class Board(BaseBoard):
             board.save()
             return True
         except Exception as error:
-            print(error)
+            Utilities.write_to_log(error)
             return False
     
     def update(self, **kwargs):
@@ -72,7 +75,7 @@ class Board(BaseBoard):
             db.session.commit()
             return self
         except Exception as error:
-            print(error)
+            Utilities.write_to_log(error)
             db.session.rollback()
             return self
 
@@ -81,7 +84,7 @@ class Board(BaseBoard):
             db.session.add(self)
             db.session.commit()
         except Exception as error:
-            print(repr(error))
+            Utilities.write_to_log(repr(error))
             db.session.rollback()
     
     def remove(self):
@@ -89,9 +92,5 @@ class Board(BaseBoard):
             db.session.delete(self)
             db.session.commit()
         except Exception as error:
-            print(error)
+            Utilities.write_to_log(error)
             db.session.rollback()
-
-if __name__ == '__main__':
-    Board.create()
-    print(Board.get(id=1))

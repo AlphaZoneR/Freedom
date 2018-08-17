@@ -93,9 +93,7 @@
             if (error) {
                 return;
             }
-
-            alert('here');
-
+            
             $.ajax({
                 url: '/admin/add',
                 type: 'POST',
@@ -105,10 +103,10 @@
                     password: $('#add-password').val()
                 },
                 success: function(response) {
-                    alert(response);
+                    console.log(response);
                 },
                 error: function(error) {
-                    alert(error);
+                    console.log(error);
                 }
             })
         });

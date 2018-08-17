@@ -1,5 +1,6 @@
 from models.database import *
 
+from utilities.login import *
 
 class BasePost(db.Base):
     __tablename__ = 'posts'
@@ -35,6 +36,7 @@ class Post(BasePost):
             return count
         except Exception as error:
             db.session.rollback()
+            Utilities.write_to_log(error)
             return -1
 
     def get_views():
@@ -45,7 +47,7 @@ class Post(BasePost):
                 summ += post.views
             return summ 
         except Exception as error:
-            raise error
+            Utilities.write_to_log(error)
             return -1
 
     def all():
@@ -61,7 +63,7 @@ class Post(BasePost):
             return result.all()[0]
         except Exception as error:
             db.session.rollback()
-            print(repr(error))
+            Utilities.write_to_log(error)
             return None
     
     def add(**kwargs):
@@ -70,17 +72,16 @@ class Post(BasePost):
             post.save()
             return True
         except Exception as error:
-            print(error)
+            Utilities.write_to_log(error)
             return False
     
     def update(self, **kwargs):
         try:
             db.session.query(Post).filter(Post.id == self.id).update(kwargs)
-            print(db.session.query(Post).filter(Post.id == self.id).all())
             db.session.commit()
             return self
         except Exception as error:
-            print(error)
+            Utilities.write_to_log(error)
             db.session.rollback()
             return self
     
@@ -97,5 +98,5 @@ class Post(BasePost):
             db.session.delete(self)
             db.session.commit()
         except Exception as error:
-            print(error)
+            Utilities.write_to_log(error)
             db.session.rollback()

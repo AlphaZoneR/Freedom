@@ -13,6 +13,7 @@ SALT = 'salt'
 
 identity_blueprint = Blueprint('identity_blueprint', __name__)
 
+
 @identity_blueprint.route('/login', methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -51,7 +52,11 @@ def add_account():
     
     try:
         user = User(name=request.form['name'], email=request.form['email'], password=sha256(f'{SALT}{request.form["password"]}'.encode()).hexdigest())
-        user.save()
-        return message(200, 'OK')
+        save = user.save()
+        if save == True:
+            return message(200, 'OK')
+        else:
+            return message(502, repr(save))
+
     except Exception as error:
         return message(503, repr(error))

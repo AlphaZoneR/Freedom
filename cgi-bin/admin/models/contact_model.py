@@ -1,5 +1,7 @@
 from models.database import *
 
+from utilities.login import *
+
 class BaseContact(db.Base):
     __tablename__ = 'contacts'
     id = Column(Integer, primary_key=True)
@@ -40,7 +42,7 @@ class Contact(BaseContact):
                 'contact': repr(q[0])
             })
         except Exception as error:
-            print(repr(error))
+            Utilities.write_to_log(error)
             
             return json.dumps({
                 'status': 'ERROR',
@@ -60,7 +62,7 @@ class Contact(BaseContact):
                 'code': 200
             })
         except Exception as error:
-            print(repr(error))
+            Utilities.write_to_log(error)
 
             db.session.rollback()
 
